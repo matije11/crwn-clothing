@@ -1,6 +1,6 @@
-import { Outlet, Link } from "react-router-dom"; // v6 for rendering child components (pages)
-import "./Navigations.scss";
+import { Outlet, Link } from "react-router-dom"; // Outlet - v6 for rendering child components (pages)
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
+import "./Navigations.scss";
 
 const Navigation = () => {
     return (
@@ -12,6 +12,9 @@ const Navigation = () => {
                 <div className="nav-links-container">
                     <Link className="nav-link" to='/shop'>
                         SHOP
+                    </Link>
+                    <Link className="nav-link" to='/sign-in'>
+                        SIGN IN
                     </Link>
                 </div>
             </div>
