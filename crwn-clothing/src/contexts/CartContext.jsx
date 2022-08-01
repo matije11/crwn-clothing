@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 
+// ======= Function for adding item to cart if not exists else increasing item quantity ====== //
 const addCartItem = (cartItems, productToAdd) => {
     // find if cartItems contains productToAdd
     const existingCartItem = cartItems.find(item => item.id === productToAdd.id);
@@ -15,7 +16,7 @@ const addCartItem = (cartItems, productToAdd) => {
     // return new array with modified cartItem / new cart item
     return [...cartItems, { ...productToAdd, quantity: 1 }]
 }
-
+// ======= Function for reducing item quantity or removing item form cart entirely ====== //
 const removeCartItem = (cartItems, itemToRemove) => {
     // find item to remove
     const cartItem = cartItems.find(item => item.id === itemToRemove.id);
@@ -23,7 +24,7 @@ const removeCartItem = (cartItems, itemToRemove) => {
     if (cartItem.quantity === 1) {
         return cartItems.filter(item => item.id !== itemToRemove.id)
     }
-    // else decrement quantitiy and return array
+    // else decrement quantity and return array
     return cartItems.map(item => item.id === itemToRemove.id ?
         {
             ...item,
@@ -31,7 +32,7 @@ const removeCartItem = (cartItems, itemToRemove) => {
         } : item
     )
 }
-// function removes entire product (cart item) from cart
+// =======  Function removes entire product (cart item) from cart ====== //
 const removeProduct = (cartItems, productToRemove) => cartItems.filter(item => item.id !== productToRemove.id)
 
 export const CartContext = createContext({
