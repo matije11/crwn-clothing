@@ -10,7 +10,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Navigation />}>  {/* parent route always present on page */}
         <Route index element={<Home />} /> {/* index - this route (page) will show at start on parents path (/) */}
-        <Route path="shop" element={<Shop />} />
+        <Route path="shop/*" element={<Shop />} />
         <Route path="auth" element={<Authentication />} />
         <Route path="checkout" element={<Checkout />} />
       </Route>
