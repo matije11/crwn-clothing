@@ -7,9 +7,9 @@ import {
 } from './CartIcon.styles'
 
 const CartIcon = () => {
-    const { openCart, setOpenCart, cartCount } = useContext(CartContext)
+    const { openCart, toggleCart, cartCount } = useContext(CartContext)
 
-    const toggleOpenCart = () => setOpenCart(!openCart)
+    const toggleOpenCart = () => toggleCart(!openCart)
 
     return (
         <CartIconContainer onClick={toggleOpenCart} >

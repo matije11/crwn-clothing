@@ -10,11 +10,11 @@ import {
 } from './CartDropdown.styles'
 
 const CartDropdown = () => {
-    const { cartItems, setOpenCart } = useContext(CartContext)
+    const { cartItems, toggleCart } = useContext(CartContext)
     const navigate = useNavigate();
 
     const goToCheckout = () => {
-        setOpenCart(false);
+        toggleCart(false);
         navigate("/checkout")
     }
     return (
