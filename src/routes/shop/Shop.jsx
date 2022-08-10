@@ -3,14 +3,14 @@ import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import CategoriesPreview from '../categories-preview/CategoriesPreview';
 import Category from '../category/Category';
-import { fetchCategoriesAsync } from '../../store/categories/categoryAction';
+import { fetchCategoriesStart } from '../../store/categories/categoryAction';
 
 const Shop = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
         const getCategories = () => {
-            dispatch(fetchCategoriesAsync())
+            dispatch(fetchCategoriesStart())
         }
         getCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps

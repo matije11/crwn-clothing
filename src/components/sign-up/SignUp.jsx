@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase'
+import { useDispatch } from 'react-redux';
+// import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase'
 import FormInput from '../form-input/FormInput'
 import Button from '../button/Button';
 import { SignUpContainer } from './SignUp.styles';
+import { signUpStart } from '../../store/user/userAction'
 
 const SignUp = () => {
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         displayName: '',
         email: '',
@@ -29,8 +32,9 @@ const SignUp = () => {
         }
 
         try {
-            const { user } = await createAuthUserWithEmailAndPassword(formData.email, formData.password);
-            await createUserDocumentFromAuth(user, { displayName: formData.displayName })
+            dispatch(signUpStart(formData.email, formData.password, formData.displayName))
+            // const { user } = await createAuthUserWithEmailAndPassword(formData.email, formData.password);
+            // await createUserDocumentFromAuth(user, { displayName: formData.displayName })
             resetForm();
         }
         catch (error) {
