@@ -67,6 +67,7 @@ export function* signOut() {
 }
 
 export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
+
     yield call(getSnapshotFromUserAuth, user, additionalDetails)
 }
 
