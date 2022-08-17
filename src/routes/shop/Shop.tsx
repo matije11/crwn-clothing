@@ -9,10 +9,7 @@ const Shop = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const getCategories = () => {
-            dispatch(fetchCategoriesStart())
-        }
-        getCategories();
+        dispatch(fetchCategoriesStart())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCartItems } from '../../store/cart/cartSelector';
 import { addItemToCart, removeItemFromCart, removeProductFromCart } from '../../store/cart/cartAction';
@@ -11,9 +11,15 @@ import {
     Arrow,
     Value,
     RemoveButton
-} from './CheckoutItem.styles'
+} from './CheckoutItem.styles';
+import { CartItem } from '../../store/cart/cartTypes';
 
-const CheckoutItem = ({ item }) => {
+type CheckoutItemProps = {
+    item: CartItem
+}
+
+const CheckoutItem: FC<CheckoutItemProps> = ({ item }) => {
+    const { imageUrl, name, quantity, price } = item;
     const dispatch = useDispatch();
     const cartItems = useSelector(selectCartItems);
 
@@ -24,15 +30,15 @@ const CheckoutItem = ({ item }) => {
     return (
         <CheckoutItemContainer>
             <ImageContainer>
-                <img src={item.imageUrl} alt={`${item.name}`} />
+                <img src={imageUrl} alt={`${name}`} />
             </ImageContainer>
-            <Name>{item.name}</Name>
+            <Name>{name}</Name>
             <Quantity>
                 <Arrow onClick={removeItemHandler}>&#10094;</Arrow>
-                <Value>{item.quantity}</Value>
+                <Value>{quantity}</Value>
                 <Arrow onClick={addItemHandler}>&#10095;</Arrow>
             </Quantity>
-            <Price>{item.price}</Price>
+            <Price>{price}</Price>
             <RemoveButton onClick={clearItemHandler}>&#10005;</RemoveButton>
         </CheckoutItemContainer>
     )

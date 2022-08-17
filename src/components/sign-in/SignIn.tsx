@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState, FormEvent, ChangeEvent } from 'react'
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import FormInput from '../form-input/FormInput'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button';
@@ -12,7 +13,7 @@ const SignIn = () => {
         password: '',
     })
 
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newFormData = {
             ...formData,
             [e.target.name]: e.target.value
@@ -24,7 +25,7 @@ const SignIn = () => {
         dispatch(googleSignInStart())
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
@@ -32,11 +33,11 @@ const SignIn = () => {
             resetForm();
         }
         catch (error) {
-            switch (error.code) {
-                case 'auth/wrong-password':
+            switch ((error as AuthError).code) {
+                case AuthErrorCodes.INVALID_PASSWORD:
                     alert("Incorrect password");
                     break
-                case 'auth/user-not-found':
+                case AuthErrorCodes.USER_DELETED:
                     alert("No user associated with this email");
                     break;
                 default:
@@ -56,7 +57,7 @@ const SignIn = () => {
         <SignInContainer>
             <h2>Already have an account?</h2>
             <span>Sign in with your email and password</span>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit}>
                 <FormInput
                     label="Email"
                     type="email"

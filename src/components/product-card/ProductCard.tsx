@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button';
 import {
@@ -9,9 +9,13 @@ import {
 } from "./ProductCard.styles"
 import { addItemToCart } from '../../store/cart/cartAction';
 import { selectCartItems } from '../../store/cart/cartSelector';
+import { CategoryItem } from '../../store/categories/categoryTypes';
 
+type ProductCardProps = {
+    product: CategoryItem
+}
 
-const ProductCard = ({ product }) => {
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
     const { name, price, imageUrl } = product;
     const dispatch = useDispatch();
     const cartItems = useSelector(selectCartItems);

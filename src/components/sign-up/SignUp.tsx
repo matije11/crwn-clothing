@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState, FormEvent, ChangeEvent } from 'react'
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 // import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase'
 import FormInput from '../form-input/FormInput'
@@ -15,7 +16,7 @@ const SignUp = () => {
         confirmPassword: ''
     })
 
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newFormData = {
             ...formData,
             [e.target.name]: e.target.value
@@ -23,7 +24,7 @@ const SignUp = () => {
         setFormData(newFormData)
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (formData.password !== formData.confirmPassword) {
@@ -38,7 +39,7 @@ const SignUp = () => {
             resetForm();
         }
         catch (error) {
-            if (error.code === "auth/email-already-in-use") {
+            if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
                 alert("Cannot create user, email already in use.")
             } else {
                 console.log('user creation encountered an error ' + error)
@@ -60,7 +61,7 @@ const SignUp = () => {
         <SignUpContainer>
             <h2>Don't have an account?</h2>
             <span>Sign up with your email and password</span>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit}>
 
                 <FormInput
                     label="Display Name"

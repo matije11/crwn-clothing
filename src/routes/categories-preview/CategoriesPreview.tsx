@@ -1,4 +1,3 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
 import CategoryPreview from "../../components/category-preview/CategoryPreview";
 import Spinner from '../../components/spinner/Spinner';
