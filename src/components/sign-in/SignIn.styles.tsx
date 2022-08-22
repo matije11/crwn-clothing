@@ -8,8 +8,16 @@ export const SignInContainer = styled.div`
     h2 {
         margin: 10px 0;
     }
+
+    @media screen and (max-width: 800px) {
+        padding: 0 10px;
+  }
 `
 export const ButtonsContainer = styled.div`
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: 800px) {
+        margin: -4px
+  }
 `
