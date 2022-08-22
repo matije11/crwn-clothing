@@ -25,5 +25,6 @@ export const PaymentButton = styled(Button)`
 
     @media screen and (max-width: 800px) {
         margin-left: unset;
+        width: 100%;
     }
 `
