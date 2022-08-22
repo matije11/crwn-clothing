@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from "react-router-dom";
-import Home from "./routes/home/Home";
-import Navigation from "./routes/navigation/Navigation"
-import Authentication from "./routes/authentication/Authentication";
-import Shop from "./routes/shop/Shop";
-import Checkout from "./routes/checkout/Checkout";
+import Spinner from "./components/spinner/Spinner";
 import { checkUserSession } from './store/user/userAction'
+
+const Navigation = lazy(() => import('./routes/navigation/Navigation'));
+const Home = lazy(() => import('./routes/home/Home'));
+const Shop = lazy(() => import('./routes/shop/Shop'));
+const Authentication = lazy(() => import('./routes/authentication/Authentication'));
+const Checkout = lazy(() => import('./routes/checkout/Checkout'));
 
 const App = () => {
   const dispatch = useDispatch()
@@ -18,14 +20,16 @@ const App = () => {
   }, [])
 
   return (
-    <Routes>
-      <Route path="/" element={<Navigation />}>  {/* parent route always present on page */}
-        <Route index element={<Home />} /> {/* index - this route (page) will show at start on parents path (/) */}
-        <Route path="shop/*" element={<Shop />} />
-        <Route path="auth" element={<Authentication />} />
-        <Route path="checkout" element={<Checkout />} />
-      </Route>
-    </Routes>
+    <Suspense fallback={<Spinner />}>
+      <Routes>
+        <Route path="/" element={<Navigation />}>  {/* parent route always present on page */}
+          <Route index element={<Home />} /> {/* index - this route (page) will show at start on parents path (/) */}
+          <Route path="shop/*" element={<Shop />} />
+          <Route path="auth" element={<Authentication />} />
+          <Route path="checkout" element={<Checkout />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 
