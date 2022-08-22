@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route } from "react-router-dom";
 import Spinner from "./components/spinner/Spinner";
 import { checkUserSession } from './store/user/userAction'
+import { GlobalStyle } from "./global.styles";
 
 const Navigation = lazy(() => import('./routes/navigation/Navigation'));
 const Home = lazy(() => import('./routes/home/Home'));
@@ -21,6 +22,7 @@ const App = () => {
 
   return (
     <Suspense fallback={<Spinner />}>
+      <GlobalStyle />
       <Routes>
         <Route path="/" element={<Navigation />}>  {/* parent route always present on page */}
           <Route index element={<Home />} /> {/* index - this route (page) will show at start on parents path (/) */}
